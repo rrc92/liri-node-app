@@ -1,17 +1,21 @@
 // require("dotenv").config();
+const axios = require('axios');
 var request = require('request');
+ 
+    axios.get(`https://www.omdbapi.com/?t=${process.argv.slice(3).join('')}&y=&plot=short&apikey=trilogy`)
+    .then(function (response) {
+      // handle success
+      console.log('Title:',response.data.Title);
+      console.log('Year:',response.data.Year);
+      console.log('Ratings:',response.data.Ratings);
+      console.log('Country:',response.data.Country);
+      console.log('Language:',response.data.Language);
+      console.log('Plot:',response.data.Plot);
+      console.log('Actors:',response.data.Actors);
+    })
 
 
-request(`https://www.omdbapi.com/?t=${process.argv[3]}&y=&plot=short&apikey=trilogy`, function (Title, Year, Rating, Rotten, Country, Language, Plot, Actors){
-    console.log('Title:', Title);
-    console.log('Year:', Year);
-    console.log('Rating:', Rating);
-    console.log('Rotten Tomatoes:', Rotten);
-    console.log('Country:', Country);
-    console.log('Language:', Language);
-    console.log('Plot:', Plot);
-    console.log('Actors:', Actors);
-});
+
 
 var keys = require("./keys.js");
 
