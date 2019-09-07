@@ -1,7 +1,7 @@
-require("dotenv").config();
-var keys = require("./keys.js");
+require('dotenv').config();
+var keys = require('./keys.js');
 const axios = require('axios');
-Spotify = require("node-spotify-api");
+Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var ToDo =process.argv[2];
 var movie = process.argv.slice(3).join('');
@@ -9,7 +9,7 @@ var artist = process.argv.slice(3).join('');
 var song = process.argv.slice(3).join('');
 
 
- if(ToDo=="movie-this"){
+ if(ToDo=='movie-this'){
     
     axios.get('https://www.omdbapi.com/?t='+ movie + '&y=&plot=short&apikey=trilogy')
     .then(function (response) {
@@ -23,7 +23,7 @@ var song = process.argv.slice(3).join('');
       console.log('Actors:',response.data.Actors);
     })
  }
- if(ToDo=="concert-this"){
+ if(ToDo=='concert-this'){
     
     axios.get('https://rest.bandsintown.com/artists/' + artist + '/events?app_id=codingbootcamp')
     .then(function (response) {
@@ -44,23 +44,33 @@ var song = process.argv.slice(3).join('');
     })
  }
 
-if (ToDo === "spotify-this-song") {
+if (ToDo === 'spotify-this-song') {
 
     spotify.search({
-        type: "track",
+        type: 'track',
         query: song
     }, function (err, data) {
         if (err) {
-            return console.log("Error occured: " + err);
+            return console.log('Error occured: ' + err);
         }
        
-        console.log("-------------------------------------");
-        console.log("Artist:" + data.tracks.items[0].artists.name);
-        console.log("Song Name:" + data.tracks.items[0].name);
-        console.log("Preview Link:" + data.tracks.items[0].preview_url);
-        console.log("Album:" + data.tracks.items[0].album.name);
+        console.log('Artist:' + data.tracks.items[0].artists[0].name);
+        console.log('Song Name:' + data.tracks.items[0].name);
+        console.log('Preview Link:' + data.tracks.items[0].preview_url);
+        console.log('Album:' + data.tracks.items[0].album.name);
     });
 }
+if (ToDo=='do-what-it-says'){
+    function random() {
+    //console.log("Read text function called.");
+    fs.printFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            console.log(error);}
+
+    //console.log(data);
+    });
+}
+};
 
 
 
